@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Front from './comp/front'; 
+import Front from './App'; 
+// import Front from './comp/front'
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
