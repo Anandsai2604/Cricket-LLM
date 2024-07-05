@@ -1,23 +1,30 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Front from './front';
-import newLogo from './th.png'; // Ensure this path is correct
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Front1 from './comp/front1';
+import IPL from './comp/ipl';
+import WorldCup from './comp/worldcup';
+import Stats from './comp/Stats6';
+import Navigation from './comp/Navigation';
+import Rag from './comp/rag';
+// import Front from './comp/front'
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={newLogo} className="App-logo" alt="logo" />
-      </header>
-      <Router>
-        <Switch>
-          <Route path="/front">
-            <Front />
-          </Route>
-          {/* Add more routes here as needed */}
-        </Switch>
-      </Router>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Front1 />} />
+          <Route path="/ipl" element={<IPL />} />
+          <Route path="/worldcup" element={<WorldCup />} />
+          <Route path="/stats" element={<Stats />} />
+          <Route path='/rag' element={<Rag/>}/>
+          {/* <Route path='/front' element={<Front/>}/> */}
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
