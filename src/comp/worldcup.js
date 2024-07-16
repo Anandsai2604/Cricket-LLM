@@ -1,7 +1,5 @@
-// this is for both t20 and worldcup 
-
 import React, { useState } from "react";
-import "./front1.css"; // Import your CSS file for styling
+import "./worldcup.css"; // Import your CSS file for styling
 
 export default function PointsTableDropdown() {
     const [tournament, setTournament] = useState('');
@@ -10,7 +8,7 @@ export default function PointsTableDropdown() {
 
     const yearOptions = {
         t20: ["2007", "2009", "2010", "2012", "2013", "2015", "2021", "2022", "2024"],
-        odi: ["1975", "1979", "1983", "1987", "1991", "1995", "1999", "2003", "2007", "2011", "2015", "2019", "2023"]
+        odi: ["1975", "1979", "1983", "1987", "1992", "1996", "1999", "2003", "2007", "2011", "2015", "2019", "2023"]
     };
 
     const fetchPointsTable = async (tournament, year) => {
@@ -64,7 +62,6 @@ export default function PointsTableDropdown() {
                 <th>Matches Played</th>
                 <th>Wins</th>
                 <th>Losses</th>
-                
             </tr>
         </thead>
     );
@@ -78,7 +75,6 @@ export default function PointsTableDropdown() {
                     <td>{team.matches}</td>
                     <td>{team.win}</td>
                     <td>{team.lose}</td>
-                    
                 </tr>
             ))}
         </tbody>
@@ -94,10 +90,12 @@ export default function PointsTableDropdown() {
                     {Object.keys(pointsTable).map((teamGroup, index) => (
                         <div key={index}>
                             <h4>{teamGroup}</h4>
-                            <table>
-                                {renderTableHeader()}
-                                {renderTableBody(pointsTable[teamGroup])}
-                            </table>
+                            <div className="table-scrollable">
+                                <table className="Table">
+                                    {renderTableHeader()}
+                                    {renderTableBody(pointsTable[teamGroup])}
+                                </table>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -107,10 +105,12 @@ export default function PointsTableDropdown() {
                 return (
                     <div className="table-container">
                         <h3>ODI World Cup {year} Points Table</h3>
-                        <table>
-                            {renderTableHeader()}
-                            {renderTableBody(pointsTable)}
-                        </table>
+                        <div className="table-scrollable">
+                            <table className="Table">
+                                {renderTableHeader()}
+                                {renderTableBody(pointsTable)}
+                            </table>
+                        </div>
                     </div>
                 );
             } else if (typeof pointsTable === 'object' && pointsTable !== null) {
@@ -120,10 +120,12 @@ export default function PointsTableDropdown() {
                         {Object.keys(pointsTable).map((teamGroup, index) => (
                             <div key={index}>
                                 <h4>{teamGroup}</h4>
-                                <table>
-                                    {renderTableHeader()}
-                                    {renderTableBody(pointsTable[teamGroup])}
-                                </table>
+                                <div className="table-scrollable">
+                                    <table className="Table">
+                                        {renderTableHeader()}
+                                        {renderTableBody(pointsTable[teamGroup])}
+                                    </table>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -133,20 +135,22 @@ export default function PointsTableDropdown() {
     };
 
     return (
-        <div className="points-table-container">
+        <div className="worldcup-container">
             <h2>Points Table</h2>
-            <select onChange={handleTournamentChange} value={tournament}>
-                <option value="">Select Tournament</option>
-                <option value="t20">T20 World Cup</option>
-                <option value="odi">ODI World Cup</option>
-            </select>
-            <select onChange={handleYearChange} value={year} disabled={!tournament}>
-                <option value="">Select Year</option>
-                {tournament && yearOptions[tournament.toLowerCase()].map((yearOption) => (
-                    <option key={yearOption} value={yearOption}>{yearOption}</option>
-                ))}
-            </select>
-            <button onClick={handleFetch} disabled={!tournament || !year}>Fetch Points Table</button>
+            <div className="selection-container">
+                <select onChange={handleTournamentChange} value={tournament}>
+                    <option value="">Select Tournament</option>
+                    <option value="t20">T20 World Cup</option>
+                    <option value="odi">ODI World Cup</option>
+                </select>
+                <select onChange={handleYearChange} value={year} disabled={!tournament}>
+                    <option value="">Select Year</option>
+                    {tournament && yearOptions[tournament.toLowerCase()].map((yearOption) => (
+                        <option key={yearOption} value={yearOption}>{yearOption}</option>
+                    ))}
+                </select>
+                <button onClick={handleFetch} disabled={!tournament || !year}>Fetch Points Table</button>
+            </div>
             {renderTable()}
         </div>
     );
