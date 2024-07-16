@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import './front1.css';
 
 const App = () => {
   const [news, setNews] = useState([]);
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchNews = async () => {
       try {
@@ -20,34 +20,14 @@ const App = () => {
     fetchNews();
   }, []);
 
-  const handleButtonClick = (endpoint) => {
-    console.log(`${endpoint} button clicked`);
-    switch (endpoint) {
-        case 'ipl':
-          navigate('/ipl');
-          break;
-        case 'worldcup':
-          navigate('/worldcup');
-          break;
-        case 'chat':
-          navigate('/rag');
-          break;
-        case 'stats':
-          navigate('/stats');
-          break;
-        default:
-          break;
-      }
-  };
-
   return (
     <div className="app">
       <header className="header">
-        <button onClick={() => handleButtonClick('ipl')}>IPL Points Table</button>
-        <button onClick={() => handleButtonClick('worldcup')}>World Cups Points Table</button>
-        <button onClick={() => handleButtonClick('chat')}>Chat with AI</button>
-        <button onClick={() => handleButtonClick('stats')}>Stats</button>
-        <button onClick={() => handleButtonClick('chat')}>Go to MAIN PAGE</button>
+        <button onClick={() => navigate(`/ipl`)}>IPL Points Table</button>
+        <button onClick={() => navigate(`/worldcup`)}>World Cups Points Table</button>
+        <button onClick={() => navigate(`/front/${localStorage.getItem('username')}`)}>Chat with AI</button>
+        <button onClick={() => navigate(`/stats`)}>Stats</button>
+        <button onClick={() => navigate(`/front1/${localStorage.getItem('username')}`)}>Go to MAIN PAGE</button>
       </header>
       <main className="main-content">
         <h1>Latest News</h1>
